@@ -12,8 +12,8 @@ import (
 	"strings"
 	"time"
 
-	tb "gopkg.in/telebot.v3"
 	"github.com/joho/godotenv"
+	tb "gopkg.in/telebot.v3"
 )
 
 func main() {
@@ -43,15 +43,15 @@ func main() {
 		}
 		chat := &tb.Chat{ID: groupId} // supergroup ID
 		if group.PagesTopic != nil {
-			createPagesPoll(bot, chat, *currentPage, *group.PagesTopic)
+			createPagesPoll(bot, chat, *currentPage, *group.PagesTopic, group.Type == "normal")
 		}
 		if group.AthkarTopic != nil {
-			createAthkarPoll(bot, chat, *group.AthkarTopic)
+			createAthkarPoll(bot, chat, *group.AthkarTopic, group.Type == "normal")
 		}
 	}
 }
 
-func createPagesPoll(bot *tb.Bot, chat *tb.Chat, num, topic int) {
+func createPagesPoll(bot *tb.Bot, chat *tb.Chat, num, topic int, normalType bool) {
 	if num == -1 {
 		startDate := time.Date(2025, 10, 7, 0, 0, 0, 0, time.UTC)
 		today := time.Now().UTC()
@@ -66,12 +66,16 @@ func createPagesPoll(bot *tb.Bot, chat *tb.Chat, num, topic int) {
 	}
 	poll.AddOptions("تم", "لسا بس اليوم أكيد إن شاء الله")
 	// SendOptions has ThreadID for forum topics
-	if _, err := poll.Send(bot, chat, &tb.SendOptions{ThreadID: topic}); err != nil {
+	options := &tb.SendOptions{}
+	if !normalType {
+		options.ThreadID = topic
+	}
+	if _, err := poll.Send(bot, chat, options); err != nil {
 		log.Fatal(err)
 	}
 }
 
-func createAthkarPoll(bot *tb.Bot, chat *tb.Chat, topic int) {
+func createAthkarPoll(bot *tb.Bot, chat *tb.Chat, topic int, normalType bool) {
 	data, err := os.ReadFile("athkar.txt")
 	if err != nil {
 		panic(err)
@@ -99,7 +103,11 @@ func createAthkarPoll(bot *tb.Bot, chat *tb.Chat, topic int) {
 	})
 	poll.AddOptions(lines[0:10]...)
 	// SendOptions has ThreadID for forum topics
-	if _, err := poll.Send(bot, chat, &tb.SendOptions{ThreadID: topic}); err != nil {
+	options := &tb.SendOptions{}
+	if !normalType {
+		options.ThreadID = topic
+	}
+	if _, err := poll.Send(bot, chat, options); err != nil {
 		log.Fatal(err)
 	}
 
