@@ -31,7 +31,7 @@ func main() {
 
 	chat := &tb.Chat{ID: CHAT_ID} // supergroup ID
 	createPagesPoll(bot, chat, *currentPage)
-	//createAthkarPoll(bot, chat)
+	createAthkarPoll(bot, chat)
 }
 
 func createPagesPoll(bot *tb.Bot, chat *tb.Chat, num int) {
