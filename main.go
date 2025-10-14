@@ -73,6 +73,7 @@ func createPagesPoll(bot *tb.Bot, chat *tb.Chat, num, topic int, normalType bool
 	if _, err := poll.Send(bot, chat, options); err != nil {
 		log.Fatal(err)
 	}
+	bot.Send(chat, "@The_Hallak, @mohammadnahhas, @ammar_alphin, @EyadBT, @Othman_Tomhe, @ABD_ULKARIM_JAMAL, @ali_h_h_13, @falmouine, @Besher_Zaiback, @Mhd0mart0meh, @Wael_Zaiback, @Jaafar_86, @The_Soviet_Cat, @M123459, @FutureHustler, @mahdi_alhamid, @JaberSH1, @kinannotfound.", options)
 }
 
 func createAthkarPoll(bot *tb.Bot, chat *tb.Chat, topic int, normalType bool) {
@@ -110,5 +111,5 @@ func createAthkarPoll(bot *tb.Bot, chat *tb.Chat, topic int, normalType bool) {
 	if _, err := poll.Send(bot, chat, options); err != nil {
 		log.Fatal(err)
 	}
-
+	bot.Send(chat, "@The_Hallak, @mohammadnahhas, @ammar_alphin, @EyadBT, @Othman_Tomhe, @ABD_ULKARIM_JAMAL, @ali_h_h_13, @falmouine, @Besher_Zaiback, @Mhd0mart0meh, @Wael_Zaiback, @Jaafar_86, @The_Soviet_Cat, @M123459, @FutureHustler, @mahdi_alhamid, @JaberSH1, @kinannotfound.", options)
 }
