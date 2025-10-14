@@ -13,9 +13,13 @@ import (
 	"time"
 
 	tb "gopkg.in/telebot.v3"
+	"github.com/joho/godotenv"
 )
 
 func main() {
+	if err := godotenv.Load(); err != nil {
+		log.Println("No .env file found, using system environment variables")
+	}
 	currentPage := flag.Int("page", -1, "current page")
 	token := os.Getenv("TELEGRAM_TOKEN")
 	dbUrl := os.Getenv("DB_CONNECTION_STRING")
@@ -57,7 +61,7 @@ func createPagesPoll(bot *tb.Bot, chat *tb.Chat, num, topic int) {
 
 	poll := tb.Poll{
 		Type:      tb.PollRegular,
-		Question:  fmt.Sprintf("صفحى %d و %d ", num, num+1),
+		Question:  fmt.Sprintf("صفحة %d و %d ", num, num+1),
 		Anonymous: false,
 	}
 	poll.AddOptions("تم", "لسا بس اليوم أكيد إن شاء الله")

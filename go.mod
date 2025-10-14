@@ -4,6 +4,7 @@ go 1.25.2
 
 require (
 	github.com/jackc/pgx/v5 v5.7.6
+	github.com/joho/godotenv v1.5.1
 	gopkg.in/telebot.v3 v3.3.8
 )
 
