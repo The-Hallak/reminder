@@ -1,9 +1,10 @@
+---
 name: Run Daily Go Script
 
 on:
   schedule:
-    - cron: '0 9 * * *' # every day at 09:00 UTC
-  workflow_dispatch: # allow manual runs too
+    - cron: '0 9 * * *'
+  workflow_dispatch:
 
 jobs:
   run:
