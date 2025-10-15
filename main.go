@@ -73,6 +73,16 @@ func createPagesPoll(bot *tb.Bot, chat *tb.Chat, num, topic int, normalType bool
 	if _, err := poll.Send(bot, chat, options); err != nil {
 		log.Fatal(err)
 	}
+	images := tb.Album{
+		&tb.Photo{
+			File: tb.FromDisk(fmt.Sprintf("pages/%03d.png", num)),
+		},
+		&tb.Photo{
+			File: tb.FromDisk(fmt.Sprintf("pages/%03d.png", num+1)),
+		},
+	}
+	bot.SendAlbum(chat, images, options)
+
 	bot.Send(chat, "@The_Hallak, @mohammadnahhas, @ammar_alphin, @EyadBT, @Othman_Tomhe, @ABD_ULKARIM_JAMAL, @ali_h_h_13, @falmouine, @Besher_Zaiback, @Mhd0mart0meh, @Wael_Zaiback, @Jaafar_86, @The_Soviet_Cat, @M123459, @FutureHustler, @mahdi_alhamid, @JaberSH1, @kinannotfound.", options)
 }
 
