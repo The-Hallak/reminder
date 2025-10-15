@@ -21,6 +21,7 @@ func main() {
 		log.Println("No .env file found, using system environment variables")
 	}
 	currentPage := flag.Int("page", -1, "current page")
+	noPages := flag.Bool("noPages", false, "don't send the pages reminder")
 	token := os.Getenv("TELEGRAM_TOKEN")
 	dbUrl := os.Getenv("DB_CONNECTION_STRING")
 	ctx := context.Background()
@@ -42,7 +43,7 @@ func main() {
 			continue
 		}
 		chat := &tb.Chat{ID: groupId} // supergroup ID
-		if group.PagesTopic != nil {
+		if group.PagesTopic != nil && *noPages == false {
 			createPagesPoll(bot, chat, *currentPage, *group.PagesTopic, group.Type == "normal")
 		}
 		if group.AthkarTopic != nil {

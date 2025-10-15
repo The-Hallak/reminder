@@ -1,23 +1,37 @@
 ---
-name: Run Daily Go Script
+name: Run Go Script (Multiple Schedules)
 
 on:
   schedule:
-    - cron: '0 2 * * *'
+    - cron: '0 1 * * *'   # 2 AM
+    - cron: '0 13 * * *'  # 2 PM
   workflow_dispatch:
 
 jobs:
-  run:
+  morning_run:
+    if: github.event.schedule == '0 1 * * *'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
       - uses: actions/setup-go@v5
         with:
           go-version: '1.23'
-
-      - name: Run Go Script
+      - name: Run Morning Job
         run: go run main.go
         env:
           TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
-          DB_CONNECTION_STRING: ${{ secrets.DB_CONNECTIONSTRING}}
+          DB_CONNECTION_STRING: ${{ secrets.DB_CONNECTIONSTRING }}
+
+  afternoon_run:
+    if: github.event.schedule == '0 13 * * *'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version: '1.23'
+      - name: Run Afternoon Job
+        run: go run main.go --noPages true
+        env:
+          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+          DB_CONNECTION_STRING: ${{ secrets.DB_CONNECTIONSTRING }}
