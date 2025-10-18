@@ -84,7 +84,7 @@ func createPagesPoll(bot *tb.Bot, chat *tb.Chat, num, topic int, normalType bool
 	}
 	bot.SendAlbum(chat, images, options)
 
-	bot.Send(chat, "@The_Hallak, @mohammadnahhas, @ammar_alphin, @EyadBT, @Othman_Tomhe, @ABD_ULKARIM_JAMAL, @ali_h_h_13, @falmouine, @Besher_Zaiback, @Mhd0mart0meh, @Wael_Zaiback, @Jaafar_86, @The_Soviet_Cat, @M123459, @FutureHustler, @mahdi_alhamid, @JaberSH1, @kinannotfound.", options)
+	tagAll(bot, chat, options)
 }
 
 func createAthkarPoll(bot *tb.Bot, chat *tb.Chat, topic int, normalType bool) {
@@ -122,5 +122,9 @@ func createAthkarPoll(bot *tb.Bot, chat *tb.Chat, topic int, normalType bool) {
 	if _, err := poll.Send(bot, chat, options); err != nil {
 		log.Fatal(err)
 	}
-	bot.Send(chat, "@The_Hallak, @mohammadnahhas, @ammar_alphin, @EyadBT, @Othman_Tomhe, @ABD_ULKARIM_JAMAL, @ali_h_h_13, @falmouine, @Besher_Zaiback, @Mhd0mart0meh, @Wael_Zaiback, @Jaafar_86, @The_Soviet_Cat, @M123459, @FutureHustler, @mahdi_alhamid, @JaberSH1, @kinannotfound.", options)
+	tagAll(bot, chat, options)
+}
+
+func tagAll(bot *tb.Bot, chat *tb.Chat, options *tb.SendOptions) {
+	bot.Send(chat, "@The_Hallak, @ammar_alphin, @Othman_Tomhe, @Abd_ALRahman_Habbab, @mohammadnahhas, @ABD_ULKARIM_JAMAL, @M123459, @Mhd0mart0meh, @EyadBT, @Jaafar_86, @The_Soviet_Cat, @Rezano07, @falmouine, @ali_h_h_13, @Besher_Zaiback, @Wael_Zaiback, @FutureHustler, @mahdi_alhamid, @JaberSH1, @kinannotfound", options)
 }
